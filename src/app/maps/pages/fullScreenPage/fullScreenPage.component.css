@@ -1,3 +1,8 @@
 :host {
   display: block;
 }
+
+#divmap {
+  width: 100vw;
+  height: 100vh;
+}

@@ -1,27 +1,29 @@
 # MapsApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
+No usar directamente en AngularCli (a menos que estén creadas las variables de entorno ), ya que las variables de entorno se crean basadas en el .env
 
-## Development server
+# Pasos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Clonar el .env.template y renombrarlo a .env
+2. Llenar las variables de entorno acorde
+3. Crear Angular Envs (opcional)
+```
+npm run envs
+```
 
-## Code scaffolding
+4. Para development ejecutar
+```
+npm run start
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+5. Para prod ejecutar:
+```
+npm run build
+```
 
-## Build
+# Nota
+las variables de entorno se definen en archivo .env y con el archivo scripts/set-envs.js se ejecuta para definir las variables en src/environments/environment.ts
+Este archivo se ejecuta con el comando npm start para dev en el package.json
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# Se trabajan mapas con lealeft https://leafletjs.com/download.html
