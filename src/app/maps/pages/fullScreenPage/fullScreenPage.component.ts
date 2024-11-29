@@ -26,8 +26,9 @@ export class FullScreenPageComponent implements AfterViewInit{
     //this.map = leaflet.map('divmap').setView([51.505, -0.09], 13);
     this.map = leaflet.map(this.divMap.nativeElement).setView([40, -74.5], 13);
 
-    leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png')
-      .addTo(this.map);
+    leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
   }
 
   getLocation(){
