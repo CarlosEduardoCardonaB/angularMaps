@@ -1,1 +1,21 @@
-<p>markersPage works!</p>
+
+
+<div #divmap id="divmap"></div>
+
+<button (click)="createMarket()" class="btn btn-primary">
+  + Agregar marcador
+</button>
+
+<ul class="list-group">
+  @for (m of markers; track $index) {
+    <li
+        [ngStyle]="{backgroundColor: m.color}"
+        (dblclick)="delteMarker($index)"
+        class="list-group-item"
+      >
+      Marquer {{ $index + 1 }}
+    </li>
+  }
+
+</ul>
+

@@ -61,7 +61,7 @@ export class ZoomPageComponent implements AfterViewInit, OnDestroy {
     this.map.on('move', ()=>{
       this.currentLatLang = this.map!.getCenter();
       //Con este console.log vemos las coordenadas de latitud y longitud cuando movemos el mapa con el mouse en la consola
-      //console.log(this.currentLatLang);
+      console.log(this.currentLatLang);
     });
 
   }

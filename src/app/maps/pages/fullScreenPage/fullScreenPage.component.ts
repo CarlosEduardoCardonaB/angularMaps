@@ -38,7 +38,7 @@ export class FullScreenPageComponent implements AfterViewInit{
         const myIcon = leaflet.icon({
           iconUrl:'assets/tu-ubicacion.png',
           iconSize: [25, 41]
-        })
+        });
         navigator.geolocation.getCurrentPosition((position) => {
           const coords:[number, number] = [position.coords.latitude, position.coords.longitude];
 
