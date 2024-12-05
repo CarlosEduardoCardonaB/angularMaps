@@ -1,9 +1,14 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as leaflet from 'leaflet';
 
 interface MarkerAndColor {
   color: string,
   marker: leaflet.Marker
+}
+
+interface PlainMarker {
+  color: string,
+  latLng: leaflet.LatLng;
 }
 
 @Component({
@@ -22,7 +27,7 @@ export class MarkersPageComponent implements AfterViewInit, OnDestroy {
   public currentLatLang: leaflet.LatLng = new leaflet.LatLng( 12.58083512845109, -81.70746803283693);
 
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     if( !this.divMap ) throw 'El elemento html no existe';
 
     //this.map = leaflet.map('divmap').setView([51.505, -0.09], 13);
@@ -33,10 +38,15 @@ export class MarkersPageComponent implements AfterViewInit, OnDestroy {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
+    setTimeout(() => {
+      this.readFromLocalStorage();
+    }, 200);
 
 
 
   }
+
+
 
   ngOnDestroy(): void {
     //Con este limpiamos todos los listener que creamos dentro de mapListener para que no queden vivos durante la sesion
@@ -75,6 +85,8 @@ export class MarkersPageComponent implements AfterViewInit, OnDestroy {
             color,
             marker
           });
+
+          this.saveToLocalStorage();
     }
 
 
@@ -83,4 +95,34 @@ export class MarkersPageComponent implements AfterViewInit, OnDestroy {
         this.markers.splice( indice, 1)
     }
 
+    flyTo( marker: leaflet.Marker ){
+        this.map?.flyTo(marker.getLatLng(), 14);
+    }
+
+    saveToLocalStorage(){
+      const plainMarkers: PlainMarker[] = this.markers.map(({color, marker}) => {
+          return {
+            color,
+            latLng: marker.getLatLng()
+          }
+      });
+
+      //console.log(plainMarkers);
+      localStorage.setItem('plainMarkers', JSON.stringify(plainMarkers));
+    }
+
+    readFromLocalStorage(){
+      const plainMarkersString = localStorage.getItem('plainMarkers') ?? '[]';
+      const plainMarkers: PlainMarker[] = JSON.parse(plainMarkersString);
+      console.log(plainMarkers);
+
+      plainMarkers.forEach(({color, latLng}) => {
+
+        if(!color)return;
+        const coords:leaflet.LatLng = new leaflet.LatLng(latLng.lat, latLng.lng);
+        console.log(coords)
+        console.log(color)
+        this.addMarker(coords, color);
+      });
+    }
  }

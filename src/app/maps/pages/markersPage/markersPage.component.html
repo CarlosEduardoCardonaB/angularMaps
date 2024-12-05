@@ -11,6 +11,7 @@
     <li
         [ngStyle]="{backgroundColor: m.color}"
         (dblclick)="delteMarker($index)"
+        (click)="flyTo(m.marker)"
         class="list-group-item"
       >
       Marquer {{ $index + 1 }}
