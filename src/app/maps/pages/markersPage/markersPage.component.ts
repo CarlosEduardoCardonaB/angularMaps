@@ -87,12 +87,25 @@ export class MarkersPageComponent implements AfterViewInit, OnDestroy {
           });
 
           this.saveToLocalStorage();
+
+          marker.on('dragend', (event) =>{
+            const marker = event.target;
+            const position = marker.getLatLng();
+            marker.setLatLng(position).openPopup();
+            this.map!.setView(position, 10);
+            console.log(`Marcador movido a: ${position.lat},${position.lng}`)
+            this.saveToLocalStorage();
+          })
+
+
     }
 
 
     delteMarker(indice: number){
         this.markers[indice].marker.remove();
-        this.markers.splice( indice, 1)
+        this.markers.splice( indice, 1);
+
+        this.saveToLocalStorage();
     }
 
     flyTo( marker: leaflet.Marker ){
@@ -120,8 +133,8 @@ export class MarkersPageComponent implements AfterViewInit, OnDestroy {
 
         if(!color)return;
         const coords:leaflet.LatLng = new leaflet.LatLng(latLng.lat, latLng.lng);
-        console.log(coords)
-        console.log(color)
+        // console.log(coords)
+        // console.log(color)
         this.addMarker(coords, color);
       });
     }

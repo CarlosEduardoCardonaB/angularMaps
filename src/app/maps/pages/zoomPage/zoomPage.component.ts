@@ -15,7 +15,6 @@ export class ZoomPageComponent implements AfterViewInit, OnDestroy {
   public zoom: number = 10;
 
   private map?: leaflet.Map;
-  private userMarker: leaflet.Marker<any> | undefined;
   public currentLatLang: leaflet.LatLng = new leaflet.LatLng(4.655447605105199, -74.10698010429192);
 
   ngAfterViewInit(): void {
